@@ -1,4 +1,4 @@
-module ram_3port.sv #(ADDR_WIDTH = 3, DATA_WIDTH = 8)(
+module ram_3port.sv #(parameter ADDR_WIDTH = 3, DATA_WIDTH = 8)(
     input logic clk,
     input logic [ADDR_WIDTH-1:0] r_addr0,
     input logic [ADDR_WIDTH-1:0] r_addr1,
@@ -9,15 +9,18 @@ module ram_3port.sv #(ADDR_WIDTH = 3, DATA_WIDTH = 8)(
     input logic write_enable
 )
 
-    logic [DATA_WIDTH - 1: 0] memory [2**ADDR_WIDTH-1:0];
+    //instantiate memory array
+    logic [DATA_WIDTH - 1: 0] memory [0:2**ADDR_WIDTH-1];
 
+    //synchronous write operation
     always_ff@(posedge clk)
     begin
         if(write_enable)
             memory[w_addr] <= w_data;
     end
 
-    assign memory[r_addr0] = r_data0;
-    assign memory[r_addr1] = r_data1;
-    
+    //asynchronous read operation
+    assign r_data0 = memory[addr0];
+    assign r_data1 = memory[addr1];
+
 endmodule
