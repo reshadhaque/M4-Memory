@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
 
-module bram_synch_dual_port #(parameter ADDR_WIDTH = 10, DATA_WIDTH = 8)(
+module bram_synch_dual_port #(parameter ADDR_WIDTH = 3, DATA_WIDTH = 8)(
     input logic clk,
     input logic [ADDR_WIDTH-1:0] addr_a,
     input logic [ADDR_WIDTH-1:0] addr_b,
