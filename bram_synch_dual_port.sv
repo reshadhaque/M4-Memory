@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
 
-module bram_sync_dual_port #(parameter ADDR_WIDTH = 10, DATA_WIDTH = 8)(
+module bram_synch_dual_port #(parameter ADDR_WIDTH = 10, DATA_WIDTH = 8)(
     input logic clk,
     input logic [ADDR_WIDTH-1:0] addr_a,
     input logic [ADDR_WIDTH-1:0] addr_b,
@@ -18,10 +18,13 @@ module bram_sync_dual_port #(parameter ADDR_WIDTH = 10, DATA_WIDTH = 8)(
     begin
         if(write_enable_a)
             memory[addr_a] <= din_a;
+        dout_a <= memory[addr_a];
+    end
+
+    always_ff@(posedge clk)
+    begin
         if(write_enable_b)
             memory[addr_b] <= din_b;
-
-        dout_a <= memory[addr_a];
         dout_b <= memory[addr_b];
     end
 
