@@ -3,6 +3,7 @@
 // Read-during-write behavior is undefined for mixed ports 
 // and "new data" on the same port
 
+//True Dual Port RAM means it will be instantiated as Block RAM (Bram)
 module true_dual_port_ram_single_clock
 #(parameter DATA_WIDTH=8, parameter ADDR_WIDTH=6)
 (
