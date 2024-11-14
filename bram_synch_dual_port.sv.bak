@@ -12,13 +12,12 @@ module bram_synch_dual_port #(parameter ADDR_WIDTH = 3, DATA_WIDTH = 8)(
     input logic write_enable_b
 );
 
-    logic [DATA_WIDTH-1:0] memory [0: 2**ADDR_WIDTH-1];
+    logic [DATA_WIDTH-1:0] memory [0:2**ADDR_WIDTH-1];
 
     always_ff@(posedge clk)
     begin
         if(write_enable_a)
             memory[addr_a] <= din_a;
-				
         dout_a <= memory[addr_a];
     end
 
